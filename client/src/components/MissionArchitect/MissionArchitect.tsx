@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, Button, Spinner, LoadingOverlay } from '../SharedUI'
 import { MissionProfileWizard } from './MissionProfileWizard'
 import { FinancialDashboard } from './FinancialDashboard'
-import { ArrowLeft, Rocket, Calculator, Shield, BarChart3, Download, Share, RefreshCw } from 'lucide-react'
+import { ArrowLeft, Rocket, Calculator, Shield, ChartBar as BarChart3, Download, Share, RefreshCw } from 'lucide-react'
 import { cn } from '../../utils/cn'
 import { 
   useCreateMissionMutation,

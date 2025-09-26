@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Card, CardHeader, CardTitle, CardContent, Button, Input, Textarea } from '../SharedUI'
-import { ChevronLeft, ChevronRight, Rocket, Satellite, Calculator, Shield, CheckCircle } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Rocket, Satellite, Calculator, Shield, CircleCheck as CheckCircle } from 'lucide-react'
 import { cn } from '../../utils/cn'
 import type { MissionFormData, WizardStep, WizardStepProps } from './types'
 

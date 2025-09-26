@@ -17,7 +17,7 @@ import {
   ResponsiveContainer
 } from 'recharts'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../SharedUI'
-import { TrendingUp, TrendingDown, DollarSign, Target, AlertTriangle, CheckCircle } from 'lucide-react'
+import { TrendingUp, TrendingDown, DollarSign, Target, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle } from 'lucide-react'
 import { cn } from '../../utils/cn'
 import type { FinancialChartData } from './types'
 
