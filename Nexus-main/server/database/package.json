@@ -1,0 +1,22 @@
+{
+  "name": "orbital-nexus-database",
+  "version": "1.0.0",
+  "description": "Database migrations for Orbital Nexus",
+  "main": "index.js",
+  "scripts": {
+    "migrate": "node-pg-migrate",
+    "migrate:up": "node-pg-migrate up",
+    "migrate:down": "node-pg-migrate down",
+    "migrate:create": "node-pg-migrate create",
+    "seed": "node seeds/index.js",
+    "seed:dev": "NODE_ENV=development node seeds/index.js"
+  },
+  "dependencies": {
+    "node-pg-migrate": "^7.0.2",
+    "pg": "^8.11.3",
+    "faker": "^6.6.6"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.10.9"
+  }
+}

@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database with PostGIS extension
+  db:
+    image: postgis/postgis:15-3.4
+    container_name: orbital-nexus-db
+    environment:
+      POSTGRES_USER: ${DB_USER:-orbital_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-orbital_password}
+      POSTGRES_DB: ${DB_NAME:-orbital_nexus}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./server/database/init:/docker-entrypoint-initdb.d
+    networks:
+      - orbital-network
+    restart: unless-stopped
+
+  # Node.js/Express backend server
+  server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.server
+    container_name: orbital-nexus-server
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_USER=${DB_USER:-orbital_user}
+      - DB_PASSWORD=${DB_PASSWORD:-orbital_password}
+      - DB_NAME=${DB_NAME:-orbital_nexus}
+      - PORT=${PORT:-8080}
+    ports:
+      - "${PORT:-8080}:${PORT:-8080}"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    networks:
+      - orbital-network
+    restart: unless-stopped
+    command: npm run dev
+
+  # React client application
+  client:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.client
+      target: development
+    container_name: orbital-nexus-client
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://localhost:${PORT:-8080}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    networks:
+      - orbital-network
+    restart: unless-stopped
+    command: npm start
+    stdin_open: true
+    tty: true
+
+networks:
+  orbital-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
