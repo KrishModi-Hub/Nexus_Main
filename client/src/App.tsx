@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout } from './components/Layout'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, Button, Spinner, OrbitSpinner } from './components/SharedUI'
 import { useGetHealthQuery } from './store/api/apiSlice'
-import { Satellite, Rocket, BarChart3, Shield } from 'lucide-react'
+import { Satellite, Rocket, ChartBar as BarChart3, Shield } from 'lucide-react'
 
 const DashboardCard: React.FC<{
   title: string

@@ -1,18 +1,5 @@
 import React from 'react'
-import { 
-  Home, 
-  Satellite, 
-  Rocket, 
-  BarChart3, 
-  Shield, 
-  Calculator, 
-  Settings, 
-  HelpCircle,
-  ChevronLeft,
-  Globe,
-  Zap,
-  Target
-} from 'lucide-react'
+import { Hop as Home, Satellite, Rocket, ChartBar as BarChart3, Shield, Calculator, Settings, Circle as HelpCircle, ChevronLeft, Globe, Zap, Target } from 'lucide-react'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { setSidebarOpen } from '../../store/slices/uiSlice'
 import { Button } from '../SharedUI'
