@@ -1,8 +1,12 @@
 import React from 'react'
 import { Layout } from './components/Layout'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, Button, Spinner, OrbitSpinner } from './components/SharedUI'
-import { useGetHealthQuery } from './store/api/apiSlice'
+import { useGetHealthQuery } from './services/api'
 import { Satellite, Rocket, ChartBar as BarChart3, Shield } from 'lucide-react'
+import { MissionArchitect } from './components/MissionArchitect'
+import { cn } from './utils/cn'
+
+type AppView = 'dashboard' | 'mission-architect'
 
 const DashboardCard: React.FC<{
   title: string
@@ -32,6 +36,11 @@ const DashboardCard: React.FC<{
 
 const App: React.FC = () => {
   const { data: healthData, isLoading: healthLoading, error: healthError } = useGetHealthQuery()
+  const [currentView, setCurrentView] = React.useState<AppView>('dashboard')
+
+  if (currentView === 'mission-architect') {
+    return <MissionArchitect onClose={() => setCurrentView('dashboard')} />
+  }
 
   return (
     <Layout>
@@ -66,7 +75,7 @@ const App: React.FC = () => {
               </div>
               
               <Button variant="primary" size="md">
-                New Mission
+                <span onClick={() => setCurrentView('mission-architect')}>New Mission</span>
               </Button>
             </div>
           </div>
@@ -199,7 +208,7 @@ const App: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Button variant="outline" size="lg" className="h-20 flex-col space-y-2">
                 <Satellite className="h-6 w-6" />
-                <span>Track Satellite</span>
+                <span onClick={() => setCurrentView('mission-architect')}>Plan Mission</span>
               </Button>
               
               <Button variant="outline" size="lg" className="h-20 flex-col space-y-2">
