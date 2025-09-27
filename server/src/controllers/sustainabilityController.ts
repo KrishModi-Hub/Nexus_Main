@@ -97,6 +97,20 @@ export class SustainabilityController {
       next(error);
     }
   }
+
+  async getActiveSatellites(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const satellites = await sustainabilityService.getActiveSatellites();
+
+      res.status(200).json({
+        success: true,
+        message: 'Active satellites retrieved successfully',
+        data: satellites
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new SustainabilityController();

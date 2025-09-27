@@ -7,5 +7,6 @@ const router = Router();
 router.post('/collision-risk', sustainabilityController.assessCollisionRisk);
 router.get('/debris-density/:altitude', sustainabilityController.getDebrisDensity);
 router.post('/deorbit-analysis', sustainabilityController.analyzeDeorbitOptions);
+router.get('/active-satellites', sustainabilityController.getActiveSatellites);
 
 export default router;
