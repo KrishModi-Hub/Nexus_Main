@@ -1,20 +1,6 @@
 import React from 'react'
 import { Card, CardHeader, CardTitle, CardContent, Button, Input } from '../SharedUI'
-import { 
-  Play, 
-  Pause, 
-  RotateCcw, 
-  Settings, 
-  Eye, 
-  EyeOff, 
-  Zap, 
-  AlertTriangle,
-  Satellite,
-  Trash2,
-  Globe,
-  Sun,
-  Moon
-} from 'lucide-react'
+import { Play, Pause, RotateCcw, Settings, Eye, EyeOff, Zap, TriangleAlert as AlertTriangle, Satellite, Trash2, Globe, Sun, Moon } from 'lucide-react'
 import { cn } from '../../utils/cn'
 import { SimulationControls, RiskAnalysisFactors, ViewSettings } from './types'
 

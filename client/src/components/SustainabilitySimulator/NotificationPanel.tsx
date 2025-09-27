@@ -1,16 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Card, CardHeader, CardTitle, CardContent, Button } from '../SharedUI'
-import { 
-  AlertTriangle, 
-  X, 
-  Clock, 
-  Satellite, 
-  Trash2, 
-  Zap,
-  ChevronDown,
-  ChevronUp,
-  Filter
-} from 'lucide-react'
+import { TriangleAlert as AlertTriangle, X, Clock, Satellite, Trash2, Zap, ChevronDown, ChevronUp, ListFilter as Filter } from 'lucide-react'
 import { cn } from '../../utils/cn'
 import { ConjunctionWarning, DebrisUpdate } from '../../hooks/useSocket'
 
