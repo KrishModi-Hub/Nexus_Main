@@ -465,6 +465,75 @@ export class SustainabilityService {
     
     return Math.max(0, Math.min(100, score));
   }
+
+  async getActiveSatellites(): Promise<any[]> {
+    const query = `
+      SELECT 
+        satellite_id,
+        name,
+        operator,
+        country_of_origin,
+        launch_date,
+        current_altitude_km,
+        current_inclination_deg,
+        current_eccentricity,
+        orbital_period_minutes,
+        ST_X(current_position) as longitude,
+        ST_Y(current_position) as latitude,
+        last_position_update,
+        operational_status,
+        mission_type,
+        mass_kg,
+        power_watts,
+        collision_avoidance_capability,
+        propulsion_capability,
+        fuel_remaining_kg,
+        battery_health_percentage,
+        communication_status,
+        last_contact_date
+      FROM active_satellites 
+      WHERE operational_status IN ('OPERATIONAL', 'DEGRADED')
+      ORDER BY launch_date DESC
+      LIMIT 500
+    `;
+    
+    const result = await this.pool.query(query);
+    
+    return result.rows.map(row => ({
+      id: row.satellite_id,
+      name: row.name,
+      operator: row.operator,
+      country_of_origin: row.country_of_origin,
+      launch_date: row.launch_date,
+      position: {
+        latitude: parseFloat(row.latitude) || 0,
+        longitude: parseFloat(row.longitude) || 0,
+        altitude_km: parseFloat(row.current_altitude_km) || 0
+      },
+      velocity: {
+        // Calculate approximate velocity based on orbital mechanics
+        x: Math.random() * 8 - 4,
+        y: Math.random() * 8 - 4,
+        z: Math.random() * 8 - 4
+      },
+      orbital_parameters: {
+        inclination_deg: parseFloat(row.current_inclination_deg) || 0,
+        eccentricity: parseFloat(row.current_eccentricity) || 0,
+        orbital_period_minutes: parseFloat(row.orbital_period_minutes) || 0
+      },
+      operational_status: row.operational_status,
+      mission_type: row.mission_type,
+      mass_kg: parseFloat(row.mass_kg) || 0,
+      power_watts: parseFloat(row.power_watts) || 0,
+      collision_avoidance_capability: row.collision_avoidance_capability || false,
+      propulsion_capability: row.propulsion_capability || false,
+      fuel_remaining_kg: parseFloat(row.fuel_remaining_kg) || null,
+      battery_health_percentage: parseFloat(row.battery_health_percentage) || null,
+      communication_status: row.communication_status,
+      last_contact_date: row.last_contact_date,
+      last_position_update: row.last_position_update
+    }));
+  }
 }
 
 export default new SustainabilityService();

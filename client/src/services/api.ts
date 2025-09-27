@@ -293,6 +293,10 @@ export const apiSlice = createApi({
         body: analysisData,
       }),
     }),
+
+    getActiveSatellites: builder.query<ApiResponse<any[]>, void>({
+      query: () => '/sustainability/active-satellites',
+    }),
   }),
 })
 

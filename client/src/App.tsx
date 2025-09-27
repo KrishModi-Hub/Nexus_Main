@@ -4,9 +4,10 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, Button, Spin
 import { useGetHealthQuery } from './services/api'
 import { Satellite, Rocket, ChartBar as BarChart3, Shield } from 'lucide-react'
 import { MissionArchitect } from './components/MissionArchitect'
+import { SustainabilitySimulator } from './components/SustainabilitySimulator'
 import { cn } from './utils/cn'
 
-type AppView = 'dashboard' | 'mission-architect'
+type AppView = 'dashboard' | 'mission-architect' | 'sustainability-simulator'
 
 const DashboardCard: React.FC<{
   title: string
@@ -40,6 +41,10 @@ const App: React.FC = () => {
 
   if (currentView === 'mission-architect') {
     return <MissionArchitect onClose={() => setCurrentView('dashboard')} />
+  }
+
+  if (currentView === 'sustainability-simulator') {
+    return <SustainabilitySimulator onClose={() => setCurrentView('dashboard')} />
   }
 
   return (
@@ -223,7 +228,7 @@ const App: React.FC = () => {
               
               <Button variant="outline" size="lg" className="h-20 flex-col space-y-2">
                 <Shield className="h-6 w-6" />
-                <span>Risk Assessment</span>
+                <span onClick={() => setCurrentView('sustainability-simulator')}>Sustainability Simulator</span>
               </Button>
             </div>
           </CardContent>
